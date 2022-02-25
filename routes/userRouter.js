@@ -5,7 +5,6 @@ const User = require("../models/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getUser } = require("../middleware/finders");
-
 const router = express.Router();
 
 // GET all users
@@ -107,5 +106,26 @@ router.delete("/:id", getUser, async (req, res, next) => {
     res.status(500).json({ message: error.message });
     }
 });
+
+
+// Get cart
+router.get('/:id/cart', (req, res, next)=>{
+    
+})
+
+// add to cart
+router.post('', (req, res, next)=>{
+    
+})
+
+// Delete from Cart
+router.delete('', (req, res, next)=>{
+    
+})
+
+// Update Cart
+router.put('', (req, res, next)=>{
+    
+})
 
 module.exports = router;

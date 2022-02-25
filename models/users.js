@@ -26,6 +26,7 @@ const usersSchema = new mongoose.Schema({
   cart: {
     type: Array,
     required: false,
+    default: []
   },
 });
 

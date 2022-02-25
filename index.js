@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-// const productRouter = require("./routes/productRouter");
+const productRouter = require("./routes/productRouter");
 const userRouter = require("./routes/userRouter");
 
 // Setting up MongoDB connection
@@ -26,7 +26,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/users", userRouter);
-// app.use("/product", productRouter);
+app.use("/products", productRouter);
 
 app.listen(app.get("port"), (server) => {
     console.info(`Server listen on port ${app.get("port")}`);

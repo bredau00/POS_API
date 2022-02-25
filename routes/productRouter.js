@@ -3,15 +3,15 @@ require("dotenv").config;
 const express = require("express");
 const Product = require("../models/products");
 const auth = require("../middleware/auth");
-const { getPost, getProduct } = require("../middleware/finders");
+const { getProduct } = require("../middleware/finders");
 
 const router = express.Router();
 
 // GET all products
 router.get("/", auth, async (req, res) => {
 try {
-    const posts = await Product.find();
-    res.status(201).send(posts);
+    const products = await Product.find();
+    res.status(201).send(products);
 } catch (error) {
     res.status(500).send({ message: error.message });
 }
@@ -24,27 +24,31 @@ res.send(res.post);
 
 // CREATE a product
 router.post("/", auth, async (req, res, next) => {
-const { title, body, img } = req.body;
+const { title, category, description, img, price, created_by } = req.body;
 
-let post;
+let product;
 
 img
-    ? (post = new Post({
+    ? (product = new Product({
         title,
         category,
-        discription: req.user._id,
+        description,
         img,
         price,
+        created_by: req.user._id,
     }))
-    : (post = new Post({
+    : (product = new Product({
         title,
         category,
-        user: req.user._id,
+        description,
+        img,
+        price,
+        created_by: req.user._id,
     }));
 
 try {
-    const newPost = await post.save();
-    res.status(201).json(newPost);
+    const newProduct = await product.save();
+    res.status(201).json(newProduct);
 } catch (error) {
     res.status(400).json({ message: error.message });
 }
