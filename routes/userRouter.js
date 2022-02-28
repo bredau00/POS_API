@@ -2,6 +2,7 @@ require("dotenv").config;
 
 const express = require("express");
 const User = require("../models/users");
+const auth = require("../middleware/auth");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { getUser } = require("../middleware/finders");
@@ -78,11 +79,10 @@ router.post("/", async (req, res, next) => {
 
 // UPDATE a user
 router.put("/:id", getUser, async (req, res, next) => {
-    const { name, contact, password, avatar, about } = req.body;
+    const { name, email, contact, password } = req.body;
     if (name) res.user.name = name;
+    if (email) res.user.email = email;
     if (contact) res.user.contact = contact;
-    if (avatar) res.user.avatar = avatar;
-    if (about) res.user.about = about;
     if (password) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -109,8 +109,12 @@ router.delete("/:id", getUser, async (req, res, next) => {
 
 
 // Get cart
-router.get('/:id/cart', (req, res, next)=>{
-    
+router.get('/:id/cart', [auth, getUser], (req, res, next)=>{
+    try {
+        res.json(req.user.cart);
+        } catch (error) {
+        res.status(500).send({ message: error.message });
+        }
 })
 
 // add to cart

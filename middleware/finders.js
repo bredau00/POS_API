@@ -17,7 +17,8 @@ async function getUser(req, res, next) {
 async function getProduct(req, res, next) {
   let product;
   try {
-    product = await product.findById(req.params.id);
+    product = await Product.findById(req.params.id);
+    
     if (!product) res.status(404).json({ message: "Could not find post" });
   } catch (error) {
     res.status(500).json({ message: error.message });
