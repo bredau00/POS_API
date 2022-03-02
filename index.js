@@ -21,7 +21,7 @@ app.use(cors());
 
 app.get("/", (req, res, next) => {
     res.send({
-      message: "Welcome to the Generic Blog API",
+      message: "Welcome to our Point of Sale API",
   });
 });
 
