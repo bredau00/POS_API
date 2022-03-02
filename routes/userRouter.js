@@ -150,7 +150,7 @@ router.post(
         res.status(500).json({ message: error.message });
       }
     }
-  );
+);
   
   // UPDATE PRODUCT IN USER CART
   router.put(
@@ -191,5 +191,6 @@ router.delete('/:id/cart', [auth, getUser], async (req, res, next)=>{
         res.status(500).json({ message: error.message });
         }
 })
+
 
 module.exports = router;
