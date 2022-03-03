@@ -25,6 +25,7 @@ res.send(res.product);
 // CREATE a product
 router.post("/", auth, async (req, res, next) => {
 const { title, category, description, img, price, created_by } = req.body;
+console.log(title, category, description, img, price,)
 
 let product;
 
